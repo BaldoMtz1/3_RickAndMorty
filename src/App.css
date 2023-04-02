@@ -1,4 +1,5 @@
-*{
+*
+{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -18,6 +19,21 @@ img{
     /* font-family: 'Roboto', sans-serif; */
 }
 
+.search-dimension{
+    padding: 5px 10px;
+    font-size: 1rem;
+    outline: none;
+    /* border-radius: 5px; */
+    /* border: none; */
+}
+
+form > button{
+    padding: 5px 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    
+}
+
 .location_residents{
     display: flex;
     flex-wrap: wrap;
@@ -29,7 +45,13 @@ img{
   background-color: #062226;
   color: white;
   width: 300px;
+  cursor: pointer;
+  transition: 300ms ease;
 
+}
+
+.resident_card:hover{
+    box-shadow: 1px 1px 10px rgba(224, 224, 224, 0.516);
 }
 
 .resident_card-body{
@@ -117,6 +139,7 @@ img{
    object-fit: cover;
    width: 100%;
    height: 100%;
+   
 }
 
 
@@ -209,6 +232,16 @@ img{
     
 
 } */
+
+
+/* // ===== Paginacion ======= */
+
+.current_pages > li{
+    color: white;
+}
+
+
+
 
 
 

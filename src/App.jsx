@@ -7,10 +7,15 @@ import LocationInfo from "./components/LocationInfo";
 import ResidentList from "./components/ResidentList";
 import getRandomNumer from "./utils/getRandomNumber";
 
+
+const RESIDENT_PER_PAGE = 15
+
 function App() {
   const [location, setLocation] = useState();
   const [locationName, setLocationName] = useState("");
   const [showError, setShowError] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [lastPage, setLastPage] = useState()
 
   const getDataDimension = (idDimension) => {
     if (idDimension) {
@@ -51,20 +56,45 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  const getAllPages = () => {
+    const arrayPages = [] 
+    for (let i = 1; i <= lastPage; i++) {
+      arrayPages.push(i)
+      
+      
+    }
+
+    return arrayPages
+  }
+
+  
+
+  
+
+
+  useEffect(() => {
+
+    const countResidents = location?.residents.length
+    const cuantityPage = Math.ceil(countResidents / RESIDENT_PER_PAGE)
+
+    setLastPage(cuantityPage);
+    setCurrentPage(1)
+
+  },[location])
+
   return (
     <div className="App">
       <div className="App_header">
         <img
           className="App_header_img"
-          src={
-            "https://s3-alpha-sig.figma.com/img/f757/e216/34f8ffb34b0055d2a2a34bc10390c23c?Expires=1672617600&Signature=DoSytUADF3aiu4lzt7FlUrPrlAGU8XI34my5yrvd6WQklHXZdkijBMXW3GIJa95M5hMHZaR6aMRTi1SmOvAUM1O8ienM-3bLnPmyWQp4IId7dFo7BQr3~B8ztWgwDPQjNF8Q9RJXxZl6AKywGuKZ-2jN3N-w-GaMhoqWXXGY82Fe-SAALS~juFLvBuuufl3GHXhOQRkig83ANpftq4PiQ4dnKgD~CklAhSmK7D3i8Ki3b~vUEGEAULHuUNQ6wYFO5QGcZe084ATH4I6OZktkROtCTn3xp7XZyTF1yAwtezLqaQFpCTOYN47pgY4TjzTu8ZZKNsbQn5IfPaF2N18fGA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-          }
-          alt=""
+          src= {"https://www.xtrafondos.com/wallpapers/rick-y-morty-escapando-de-portal-9235.jpg"}
+          alt="foto Rick and Morty"
         />
 
         <div className="App_header-form" >
           <form onSubmit={handleSubmit}>
             <input
+              className="search-dimension"
               id="searchValue"
               value={locationName}
               type="text"
@@ -88,6 +118,15 @@ function App() {
 
         <ResidentList location={location} />
       </div>
+
+      <ul className="current_pages">
+        {
+          getAllPages().map(page => (
+            <li key={page}>{page}</li>
+          ))
+        }
+      </ul>
+
     </div>
   );
 }
